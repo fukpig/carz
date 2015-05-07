@@ -1,0 +1,105 @@
+%p#notice= notice
+
+%p
+  %b Id:
+  = @car.id 
+%p
+  %b Status:
+  = @car.status
+%p
+  %b Synced with Dealer Solutions:
+  = @car.sync == true ? 'yes' : 'no'
+%p
+  %b Client No:
+  = @car.client_no 
+%p
+  %b Stock No:
+  = @car.stock_no 
+%p
+  %b Dealer Code:
+  = @car.dealer_code
+%p
+  %b Manufacturer year:
+  = @car.manu_year
+%p
+  %b Make:
+  = @car.make
+%p
+  %b Model:
+  = @car.model
+%p
+  %b Series:
+  = @car.series
+%p
+  %b Badge:
+  = @car.badge
+%p
+  %b Body:
+  = @car.body
+%p
+  %b Doors:
+  = @car.doors
+%p
+  %b Seats:
+  = @car.seats
+%p
+  %b Body colour:
+  = @car.body_colour
+%p
+  %b Trim colour:
+  = @car.trim_colour
+%p
+  %b Gears:
+  = @car.gears
+%p
+  %b Gearbox:
+  = @car.gearbox
+%p
+  %b Fuel type:
+  = @car.fuel_type
+%p
+  %b Retail:
+  = @car.retail
+%p
+  %b Rego:
+  = @car.rego
+%p
+  %b Odometer:
+  = @car.odometer
+%p
+  %b Cylinders:
+  = @car.cylinders
+%p
+  %b Engine capacity:
+  = @car.engine_capacity
+%p
+  %b VINN number:
+  = @car.vin_number
+%p
+  %b Engine number:
+  = @car.engine_number
+%p
+  %b Manufacture month:
+  = @car.manu_month
+%p
+  %b Options:
+  = @car.options
+%p
+  %b Comments:
+  = @car.comments
+%p
+  %b NVIC:
+  = @car.nvic
+%p
+  %b Redbookcode:
+  = @car.redbookcode
+%p
+  %b Location:
+  = @car.location
+%p
+  %b Image:
+  = @car.image
+
+= link_to 'Edit', edit_car_path(@car)
+\|
+= link_to 'Back', cars_path

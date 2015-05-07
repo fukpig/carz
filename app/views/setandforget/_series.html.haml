@@ -1,0 +1,38 @@
+Select Series:
+%br
+%select.chzn-select{:multiple => "multiple", :style => "width:300px", :name => "search[series][]"}
+  = @series.each do |s|
+    = build_series_option(s, @series_defaults)
+:javascript
+  $(".chzn-select").chosen({
+      create_option: true,
+      persistent_create_option: true,
+      create_option_text: 'add',
+  });
+
+
+  $(".chzn-select").on("change", function(){
+    series = $(this).val();
+    models = $('.chzn-select-model').val();
+    if (series == null) {
+      $(".models").empty();
+    } else {
+      $.ajax({
+        url: '/setandforget/get_models',
+        data: {
+        	format: 'html',
+        	search_series: series,
+        },
+        error: function() {
+        	$('#info').html('<p>An error has occurred</p>');
+        },
+        dataType: 'html',
+        success: function(data) {
+        	$(".models").empty().html(data);
+        	var arr = Object.keys(models).map(function (key) {return models[key]});
+        	$('.chzn-select-model').val(arr).trigger("chosen:updated");;
+        },
+        type: 'GET'
+      });
+    }
+  });

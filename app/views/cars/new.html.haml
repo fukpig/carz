@@ -1,0 +1,26 @@
+%h1 New car
+
+= render 'form'
+
+= link_to 'Back', cars_path
+
+
+:javascript
+  $("#car_vin_number").on("change", function(){
+    vin = $(this).val();
+    $.ajax({
+      url: '/cars/vin',
+      data: {
+        format: 'html',
+        vin: vin,
+      },
+      error: function() {
+        $('#info').html('<p>An error has occurred</p>');
+      },
+      dataType: 'html',
+      success: function(data) {
+       alert(data);
+      },
+      type: 'GET'
+   });
+  });

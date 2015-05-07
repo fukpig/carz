@@ -1,0 +1,20 @@
+
+= form_for @option do |f|
+  - if @option.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@car.errors.count, "error")} prohibited this option from being saved:"
+      %ul
+        - @option.errors.full_messages.each do |msg|
+          %li= msg
+  .field 
+    = f.label :option_name
+    = f.text_field :option_name 
+  .field
+    = f.label :values
+    = f.text_field :values 
+  .field
+    = f.label :field_type
+    = f.select :field_type, [['Text field','text_field'], ['List','list'], ['Range','range']]
+
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,14 @@
+%h1 Editing car
+
+= form_for @car do |f|
+  .field
+    = f.label :status
+    = f.select :status, [['Available','available'], ['Sold','sold'], ['RTV','rtv']]
+  
+  .actions
+    = f.submit 'Save'
+
+
+= link_to 'Show', @car
+\|
+= link_to 'Back', cars_path

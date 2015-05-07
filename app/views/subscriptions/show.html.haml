@@ -1,0 +1,23 @@
+%p#notice= notice
+
+%p
+  %b Plan:
+  = @subscription.plan.name
+%p
+  %b Status:
+  = @subscription.aasm_state
+- if !@subscription.next_payment_due.nil?
+  %p
+    %b Next payment date:
+    = @subscription.next_payment_due
+  %p
+    %b Plan duration:
+    = @subscription.plan_duration
+%p
+  %b Created at:
+  = @subscription.created_at
+%p
+  %b Updated at:
+  = @subscription.updated_at
+  
+= link_to 'Back', users_path

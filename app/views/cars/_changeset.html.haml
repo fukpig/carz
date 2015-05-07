@@ -1,0 +1,3 @@
+- version.changeset.each do |k,v|
+  = if k != 'updated_at'
+    "#{k} updated from #{v[0]} to #{v[1]}"

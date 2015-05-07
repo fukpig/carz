@@ -1,0 +1,84 @@
+%section.content
+  %input#car_id{:type => "hidden", :value => @car_id}
+  .row
+    .col-md-3
+      .box
+        .box-header
+          %h3.box-title Series
+        / /.box-header
+        .box-body
+          %table.table.table-bordered
+            %tbody
+              %tr
+                %th Name
+              %tr
+                %td Update software
+        %button.btn.btn-block.btn-success.series{"data-target" => ".modal", "data-toggle" => "modal"} Success
+        / /.box-body
+      / /.box
+    .col-md-3
+      .box
+        .box-header
+          %h3.box-title Badges
+        / /.box-header
+        .box-body
+          %table.table.table-bordered
+            %tbody
+              %tr
+                %th Name
+              %tr
+                %td Update software
+        %button.btn.btn-block.btn-success New
+        / /.box-body
+      / /.box
+
+    .col-md-3
+      .box
+        .box-header
+          %h3.box-title Models
+        / /.box-header
+        .box-body
+          %table.table.table-bordered
+            %tbody
+              %tr
+                %th Name
+              %tr
+                %td Update software
+        %button.btn.btn-block.btn-success New
+        / /.box-body
+      / /.box
+.example-modal
+  .modal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+          %h4.modal-title Modal Default
+        .modal-body
+          .modal-container
+        .modal-footer
+          %button.btn.btn-default.pull-left{"data-dismiss" => "modal", :type => "button"} Close
+          %button.btn.btn-primary{:type => "button"} Save changes
+      / /.modal-content
+    / /.modal-dialog
+  / /.modal
+:javascript
+  $(".series").on("click", function(){
+    car_id = $("#car_id").val();
+    $.ajax({
+      url: '/admin/cars/'+car_id+'/new_series',
+      data: {
+        format: 'html'
+      },
+      error: function() {
+        $('#info').html('<p>An error has occurred</p>');
+      },
+      dataType: 'html',
+      success: function(data) {
+        $('.modal-container').empty().html(data);
+      },
+      type: 'GET'
+   });
+
+  })

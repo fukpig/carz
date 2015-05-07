@@ -1,0 +1,58 @@
+= render 'search'
+.box-body.table-responsive
+  %br/
+  %table#example2.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th Sync with Dealer Solution
+        %th Make
+        %th Stock
+        %th Model
+        %th Manufacture year
+        %th Series
+        %th Badge
+        %th Door
+        %th Body
+        %th Seat
+        %th Status
+        %th Actions
+    %tbody
+      - @cars.each do |car|
+        %tr
+          %td= car.sync == false ? 'no' : 'yes'
+          %td= car.make
+          %td= car.stock_no
+          %td= car.model
+          %td= car.manu_year
+          %td= car.series
+          %td= car.badge
+          %td= car.vin_number
+          %td= car.body
+          %td= car.seats
+          %td= car.status
+          %td 
+            = link_to 'Show', car
+            = car.sync == false ? (link_to 'Edit', edit_car_path(car)) : ''
+            = link_to 'Set status', edit_status_car_path(car)
+    %tfoot
+      %tr
+        %th Client №
+        %th Make
+        %th Stock
+        %th Model
+        %th Manufacture year
+        %th Series
+        %th Badge
+        %th Door
+        %th Body
+        %th Seat
+        %th Status
+        %th Actions
+/ /.box-body
+
+%script{:src => "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js", :type => "text/javascript"}
+%script{:src => "//code.jquery.com/ui/1.11.1/jquery-ui.min.js", :type => "text/javascript"}
+%script{:src => "//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"}
+
+= javascript_include_tag "plugins/datatables/jquery.dataTables.js", "data-turbolinks-track" => true
+= javascript_include_tag "plugins/datatables/dataTables.bootstrap.js", "data-turbolinks-track" => true

@@ -1,0 +1,17 @@
+<div class="form-group" style="width:300px;">
+	<% @options.each do |option| %>
+		<%= option.option_name %>
+		<% if option.field_type == "list" %>
+			<%= select("search", option.option_field, option.values.split(",").map {|v| [ v, v ] }, { include_blank: true, selected: set_default(option.option_field) }) %>
+		<% end %>
+
+		<% if option.field_type == "range" %>
+			<br/>From: <%=  text_field_tag 'search['+ option.option_field + '_from]', set_default(option.option_field.to_s+"_from") , maxlength: 15, size: 20 %><br />
+			To: <%=  text_field_tag 'search['+ option.option_field + '_to]',  set_default(option.option_field.to_s+"_to"), maxlength: 15, size: 20 %>
+			<% end %>
+
+		<% if option.field_type == "text_field" %>
+			<%=  text_field_tag 'search['+ option.option_field + ']',  set_default(option.option_field), maxlength: 15, size: 20 %>
+		<% end %>
+	<% end %>
+</div>

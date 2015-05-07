@@ -1,0 +1,36 @@
+.box-body.table-responsive
+  = form_tag(set_and_forget_search_path, method: "get", style: "width:300px;") do
+    = hidden_field("search", "id", :value => @id)
+    Select Make:
+    = select("search", "make", @makes.collect {|m| [ m.name, m.name ] }, { selected: @make_default})
+    .series
+      - if !@series.nil?
+        = render "series"
+        = #select("search", "model", @series.map {|m| [ m.name, m.name ] }, {selected: @model_default })
+    .models
+      - if !@models.nil?
+        = render "models"
+    .options
+      = render "options"
+
+    = submit_tag "Search", :name => 'search_request'
+    = submit_tag "Save search", :name => 'save'
+:javascript
+  $("#search_make").on("change", function(){
+    make = $(this).val();
+    $.ajax({
+      url: '/setandforget/get_series',
+      data: {
+        format: 'html',
+        search_make: make,
+      },
+      error: function() {
+        $('#info').html('<p>An error has occurred</p>');
+      },
+      dataType: 'html',
+      success: function(data) {
+        $(".series").empty().html(data);
+      },
+      type: 'GET'
+   });
+  });

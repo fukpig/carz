@@ -1,0 +1,55 @@
+<div class="chatboxhead">
+  <div class="chatboxtitle">
+    <i class="fa fa-comments"></i>
+
+    <h1><%= @reciever.name %> </h1>
+  </div>
+  <div class="chatboxoptions">
+    <%= link_to "<i class='fa  fa-minus'></i> ".html_safe, "#", class: "toggleChatBox", "data-cid" => @conversation.id %>
+    &nbsp;&nbsp;
+    <%= link_to "<i class='fa  fa-times'></i> ".html_safe, "#", class: "closeChat", "data-cid" => @conversation.id %>
+  </div>
+  <br clear="all"/>
+</div>
+<div class="chatboxcontent">
+  <% if @messages.any? %>
+      <%= render @messages %>
+  <% end %>
+</div>
+<div class="chatboxinput">
+  <%= form_for([@conversation, @message], :remote => true, :html => {id: "conversation_form_#{@conversation.id}", class: "chatboxform"}) do |f| %>
+      <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id %>
+  <% end %>
+</div>
+
+<%= subscribe_to conversation_path(@conversation) %>
+
+<script type="text/javascript">
+    PrivatePub.subscribe("<%= conversation_path(@conversation)%>", function(data, channel) {
+      if (data.message.body != ''){
+        var id = data.conversation.id;
+        var chatbox = $("#chatbox_" + id + " .chatboxcontent");
+        var sender_id = data.user_id;
+        var reciever_id = $('meta[name=user-id]').attr("content");
+
+        class_name = 'self';
+        if (sender_id != reciever_id) {
+          class_name = 'other';
+        } 
+
+        message = '<li data-id="' + data.message.id + '" class="' + class_name + '"><div class="avatar"><img src="http://placehold.it/50x50" /></div><div class="chatboxmessagecontent"><p>' + data.message.body + '</p> <time datetime="' + data.time + '" title="' + data.time + '">' + data.sender_name + ' • ' + data.time + '</time></div></li>';
+
+      chatbox.append(message);
+
+        chatbox.scrollTop(chatbox[0].scrollHeight);
+
+        if(sender_id != reciever_id){
+          chatBox.chatWith(id);
+            chatbox.children().last().removeClass("self").addClass("other");        
+          chatbox.scrollTop(chatbox[0].scrollHeight);
+            chatBox.notify(id);
+        }
+
+      }
+    });
+</script>

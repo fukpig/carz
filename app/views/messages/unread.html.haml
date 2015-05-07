@@ -1,0 +1,17 @@
+- model_class = Message.new.class
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+        Name
+      %th
+        Message
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @messages.each do |message|
+      %tr
+        %td= link_to message.user.name, message.user.name
+        %td= message.body
+        %td
+          = link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", |
+  "data-sid" => current_user.id, "data-rip" =>  message.user.id

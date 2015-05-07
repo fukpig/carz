@@ -1,0 +1,16 @@
+.box-body.table-responsive
+  %table#example2.table.table-bordered.table-striped
+    %thead
+      %tr
+        %th Date
+        %th Change
+    %tbody
+      - @car.versions.each do |version|
+        - if version.event == 'update'
+          %tr
+            %td= version.changeset["updated_at"].last
+            %td
+              - version.changeset.each do |k,v|
+                - if k != 'updated_at'
+                  #{k} updated from #{v[0]} to #{v[1]}
+                  %br/ 

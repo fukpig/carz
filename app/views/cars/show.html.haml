@@ -1,0 +1,155 @@
+%p#notice= notice
+
+%p
+  %b Id:
+  = @car.id 
+%p
+  %b Status:
+  = @car.status
+%p
+  %b Synced with Dealer Solutions:
+  = @car.sync == true ? 'yes' : 'no'
+%p
+  %b Client No:
+  = @car.client_no 
+%p
+  %b Stock No:
+  = @car.stock_no 
+%p
+  %b Dealer Code:
+  = @car.dealer_code
+%p
+  %b Manufacturer year:
+  = @car.manu_year
+%p
+  %b Make:
+  = @car.make
+%p
+  %b Model:
+  = @car.model
+%p
+  %b Series:
+  = @car.series
+%p
+  %b Badge:
+  = @car.badge
+%p
+  %b Body:
+  = @car.body
+%p
+  %b Doors:
+  = @car.doors
+%p
+  %b Seats:
+  = @car.seats
+%p
+  %b Body colour:
+  = @car.body_colour
+%p
+  %b Trim colour:
+  = @car.trim_colour
+%p
+  %b Gears:
+  = @car.gears
+%p
+  %b Gearbox:
+  = @car.gearbox
+%p
+  %b Fuel type:
+  = @car.fuel_type
+%p
+  %b Retail:
+  = @car.retail
+%p
+  %b Rego:
+  = @car.rego
+%p
+  %b Odometer:
+  = @car.odometer
+%p
+  %b Cylinders:
+  = @car.cylinders
+%p
+  %b Engine capacity:
+  = @car.engine_capacity
+%p
+  %b VINN number:
+  = @car.vin_number
+%p
+  %b Engine number:
+  = @car.engine_number
+%p
+  %b Manufacture month:
+  = @car.manu_month
+%p
+  %b Options:
+  = @car.options
+%p
+  %b Comments:
+  = @car.comments
+%p
+  %b NVIC:
+  = @car.nvic
+%p
+  %b Redbookcode:
+  = @car.redbookcode
+%p
+  %b Location:
+  = @car.location
+%p
+  %b Images:
+  #links
+    - @car.images.each do |image|
+      %a{"data-gallery" => "", :href => image.image_file_name.url, :title => @car.model}
+        = image_tag(image.image_file_name.small.url)
+
+
+  #blueimp-gallery.blueimp-gallery
+    / The container for the modal slides
+    .slides
+    / Controls for the borderless lightbox
+    %h3.title
+    %a.prev ‹
+    %a.next ›
+    %a.close ×
+    %a.play-pause
+    %ol.indicator
+    / The modal dialog, which will be used to wrap the lightbox content
+    .modal.fade
+      .modal-dialog
+        .modal-content
+          .modal-header
+            %button.close{"aria-hidden" => "true", :type => "button"} ×
+            %h4.modal-title
+          .modal-body.next
+          .modal-footer
+            %button.btn.btn-default.pull-left.prev{:type => "button"}
+              %i.glyphicon.glyphicon-chevron-left
+              Previous
+            %button.btn.btn-primary.next{:type => "button"}
+              Next
+              %i.glyphicon.glyphicon-chevron-right
+   
+= link_to 'Edit', edit_car_path(@car)
+\|
+= link_to 'Back', cars_path
+
+
+= stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+= stylesheet_link_tag "//blueimp.github.io/Gallery/css/blueimp-gallery.min.css"
+= stylesheet_link_tag "bootstrap-image-gallery.css", "data-turbolinks-track" => true
+= javascript_include_tag "//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js", "data-turbolinks-track" => true
+= javascript_include_tag "bootstrap-image-gallery.min.js", "data-turbolinks-track" => true
+
+:javascript
+  document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {
+            index: link,
+            event: event
+        },
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};

@@ -1,0 +1,21 @@
+- model_class = Plan.new.class
+%h1=t '.title', :default => model_class.model_name.human.pluralize
+= link_to "New", new_plan_path, :method => :get, :class => "btn btn-default btn-flat"
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:description)
+      %th= model_class.human_attribute_name(:month_price)
+      %th= model_class.human_attribute_name(:year_price)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @plans.each do |plan|
+      %tr
+        %td= plan.name
+        %td= plan.description
+        %td= plan.month_price
+        %td= plan.year_price
+        %td
+          = link_to "Edit", edit_plan_path(plan), :method => :get, :class => "btn btn-default btn-flat"
+          = link_to t('.destroy', :default => t("helpers.links.destroy")), plan_path(plan), :method => :delete, :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')), :class => 'btn btn-mini btn-danger'

@@ -1,0 +1,11 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @option.option_name
+%p
+  %b Provider:
+  = @option.values
+
+\|
+= link_to 'Back', search_options_path

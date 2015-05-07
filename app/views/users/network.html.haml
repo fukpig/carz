@@ -1,0 +1,22 @@
+- model_class = User.new.class
+= link_to "Invite dealer", '/users/invitation/new', :method => :get, :class => "btn btn-default btn-flat"
+%table.table.table-striped
+  %thead
+    %tr
+      %th= model_class.human_attribute_name(:email)
+      %th= model_class.human_attribute_name(:name)
+      %th= model_class.human_attribute_name(:phone)
+      %th= model_class.human_attribute_name(:company_name)
+      %th= model_class.human_attribute_name(:company_phone)
+      %th=t '.actions', :default => t("helpers.actions")
+  %tbody
+    - @network_members.each do |user|
+      %tr
+        %td= link_to user.email, user.url
+        %td= user.name
+        %td= user.phone
+        %td= user.company_name
+        %td= user.company_phone
+        %td
+          = link_to "Send Message", "#", class: "btn btn-success btn-xs start-conversation", |
+  "data-sid" => current_user.id, "data-rip" => user.id

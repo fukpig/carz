@@ -1,0 +1,21 @@
+.box-body.table-responsive.no-padding
+  %table.table.table-hover
+    %tbody
+      %tr
+        %th Name
+        %th Month Price
+        %th Status
+        %th Description
+      - @plans.each do |plan|
+        %tr
+          %td 
+            = plan.name
+          %td 
+            = plan.month_price
+          %td
+            = form_tag("/subscriptions/create", method: "post") do
+              = hidden_field_tag 'plan_id', plan.id
+              = hidden_field_tag 'plan_duration', 'month'
+              = button_tag "Subscribe", class: "btn btn-primary"
+          %td 
+            = plan.description

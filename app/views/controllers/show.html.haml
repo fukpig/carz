@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Cd:
+  = @controller.cd
+%p
+  %b /home/cars/app/views/messages:
+  = @controller./home/cars/app/views/messages
+
+= link_to 'Edit', edit_controller_path(@controller)
+\|
+= link_to 'Back', controllers_path

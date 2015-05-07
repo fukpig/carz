@@ -1,0 +1,23 @@
+%h1 Listing controllers
+
+%table
+  %thead
+    %tr
+      %th Cd
+      %th /home/cars/app/views/messages
+      %th
+      %th
+      %th
+
+  %tbody
+    - @controllers.each do |controller|
+      %tr
+        %td= controller.cd
+        %td= controller./home/cars/app/views/messages
+        %td= link_to 'Show', controller
+        %td= link_to 'Edit', edit_controller_path(controller)
+        %td= link_to 'Destroy', controller, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Controller', new_controller_path

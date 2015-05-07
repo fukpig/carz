@@ -1,0 +1,32 @@
+#login-box.form-box
+  .header Register
+  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    .body.bg-gray
+      .form-group
+        = f.text_field :name, autofocus: true,  :placeholder => "Name",  :class => "form-control"
+      .form-group
+        = f.text_field :phone, :placeholder => "Phone",  :class => "form-control"
+      .form-group
+        = f.text_field :dealer_number, :placeholder => "Dealer number",  :class => "form-control"
+      .form-group
+        = f.text_field :dealer_solution_number, :placeholder => "Dealer Solution number",  :class => "form-control"  
+      .form-group
+        = f.text_field :company_name, :placeholder => "Company name",  :class => "form-control"
+      .form-group
+        = f.text_field :company_phone,:placeholder => "Company phone",  :class => "form-control"
+      .form-group
+        = f.email_field :email, :placeholder => "Email",  :class => "form-control"
+      .form-group
+        = f.password_field :password, autocomplete: "off", :placeholder => "Password",  :class => "form-control"
+      .form-group
+        = f.password_field :password_confirmation, autocomplete: "off", :placeholder => "Password Confirmation",  :class => "form-control"
+    .footer
+      = f.submit "Sign up", :class => "btn bg-olive btn-block"
+      %p
+        = link_to "I already registred", new_user_session_path, :class => "text-center"
+  .margin.text-center
+    %span Register using social networks
+    %br/
+    %a{:href => user_omniauth_authorize_path(:facebook)}
+      %button.btn.bg-light-blue.btn-circle
+        %i.fa.fa-facebook

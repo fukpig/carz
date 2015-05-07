@@ -1,0 +1,101 @@
+= form_for @car do |f|
+  - if @car.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@car.errors.count, "error")} prohibited this car from being saved:"
+      %ul
+        - @car.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :VINN_number
+    = f.text_field :vin_number
+  .field
+    = f.label :Status
+    = f.select :status, [['Available','available'], ['Sold','sold'], ['RTV','rtv']]
+  .field
+    = f.label :Client_No
+    = f.text_field :client_no 
+  .field
+    = f.label :Stock_No
+    = f.text_field :stock_no 
+  .field
+    = f.label :Dealer_Code
+    = f.text_field :dealer_code
+  .field
+    = f.label :Manufacturer_year
+    = f.text_field :manu_year
+  .field
+    = f.label :Make
+    = f.text_field :make
+  .field
+    = f.label :Model
+    = f.text_field :model
+  .field
+    = f.label :Series
+    = f.text_field :series
+  .field
+    = f.label :Badge
+    = f.text_field :badge
+  .field
+    = f.label :Body
+    = f.text_field :body
+  .field
+    = f.label :Doors
+    = f.text_field :doors
+  .field
+    = f.label :Seats
+    = f.text_field :seats
+  .field
+    = f.label :Body_colour
+    = f.text_field :body_colour
+  .field
+    = f.label :Trim_colour
+    = f.text_field :trim_colour
+  .field
+    = f.label :Gears
+    = f.text_field :gears
+  .field
+    = f.label :Gearbox
+    = f.text_field :gearbox
+  .field
+    = f.label :Fuel_type
+    = f.text_field :fuel_type
+  .field
+    = f.label :Retail
+    = f.text_field :retail
+  .field
+    = f.label :Rego
+    = f.text_field :rego
+  .field
+    = f.label :Odometer
+    = f.text_field :odometer
+  .field
+    = f.label :Cylinders
+    = f.text_field :cylinders
+  .field
+    = f.label :Engine_capacity
+    = f.text_field :engine_capacity
+  .field
+    = f.label :Engine_number
+    = f.text_field :engine_number
+  .field
+    = f.label :Manufacture_month
+    = f.text_field :manu_month
+  .field
+    = f.label :Options
+    = f.text_field :options
+  .field
+    = f.label :Comments
+    = f.text_field :comments
+  .field
+    = f.label :NVIC
+    = f.text_field :nvic
+  .field
+    = f.label :Redbookcode
+    = f.text_field :redbookcode
+  .field
+    = f.label :Location
+    = f.text_field :location
+    = f.label :image
+    = f.file_field :image
+  .actions
+    = f.submit 'Save'

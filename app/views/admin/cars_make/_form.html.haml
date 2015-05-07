@@ -1,0 +1,12 @@
+= form_for @make, url: admin_cars_make_index_path(@make), html: { method: :post } do |f|
+  - if @make.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@make.errors.count, "error")} prohibited this car from being saved:"
+      %ul
+        - @make.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :name
+    = f.text_field :name 
+  .actions
+    = f.submit 'Save'
