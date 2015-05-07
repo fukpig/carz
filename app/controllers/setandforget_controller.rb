@@ -28,7 +28,7 @@ class SetandforgetController < ApplicationController
       id = 'new' 
       id = params[:search]['id'] if !params[:search]['id'].nil? && !params[:search]['id'].empty?
       remove_id_param
-      search_json = save_search_params(params).to_json
+      search_json = Setandforget.save_search_params(params).to_json
       snf = current_user.setandforget.where('search_params = ?', search_json).first
       if snf.nil?
         if id != 'new'
@@ -52,8 +52,7 @@ class SetandforgetController < ApplicationController
       set_id
       remove_id_param
 
-      with_params = with_params(params)
-      @cars = Car.search "", :conditions => search_params(params), :with => with_params, :per_page => 500
+      @cars = Car.search "", :conditions => Setandforget.search_params(params), :with => Setandforget.with_params(params), :per_page => 500
 
     end
   end
@@ -84,7 +83,7 @@ class SetandforgetController < ApplicationController
 
   def update
     snf = Setandforget.find(params[:id])
-    snf.update_attributes(:search_params => search_params(params).to_json)
+    snf.update_attributes(:search_params => Setandforget.search_params(params).to_json)
     redirect_to setandforget_index_path
   end
   
@@ -183,42 +182,5 @@ class SetandforgetController < ApplicationController
   def get_models_search(make)
     @models = CarsModels.where('make_id = ?', make.id)
   end
-
-  def search_params(params={})
-    return [nil] if params.blank? || params[:search].blank?
-    p = params[:search].dup
-    info = Hash.new
-    p.each do |k,v|
-      if !k.to_s.include?("_from") && !k.to_s.include?("_to")
-        info[k] = v
-      end
-    end
-    return info
-  end
-
-  def save_search_params(params={})
-    return [nil] if params.blank? || params[:search].blank?
-    p = params[:search].dup
-    return p
-  end
-
-  def with_params(params={})
-    return {} if params.blank? || params[:search].blank?
-    info = Hash.new
-    params[:search].each do |k, v|
-      if k.to_s.include? "_from"
-        param_f = v
-        param_f = 0 if param_f.empty?
-            
-        param_name = k.to_s.gsub("_from", "")
-
-        param_t = params[:search][param_name+"_to"]
-        param_t = 99999 if param_t.empty?
-        info[param_name] = param_f.to_i..param_t.to_i
-      end
-    end
-    return info
-  end
-
 
 end
