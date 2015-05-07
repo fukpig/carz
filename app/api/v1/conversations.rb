@@ -15,11 +15,7 @@ module V1
   	    if User.exists?(params[:sel])
             conversation = Conversation.create_converstion(current_user.id, params[:sel], car)
       	end	
-      	info = Array.new
-      	conversation.messages.each do |message|
-      		sender = message.user_id == current_user.id ? 'me' : 'interlocutor'
-      		info << {"body" => message.body, "sender" => sender, "created_at" => message.created_at.strftime("%d %b  %Y at %I:%M%p")}
-      	end
+      	info = Conversation.get_messages(conversation.messages, current_user)
       	{"status" => "success", "messages" => info, "conversation" => conversation.id}
       end
 
@@ -31,11 +27,7 @@ module V1
       get '/find' do
         authorize
         conversation = current_user.conversations.find(params[:conversation])
-        info = Array.new
-        conversation.messages.each do |message|
-          sender = message.user_id == current_user.id ? 'me' : 'interlocutor'
-          info << {"body" => message.body, "sender" => sender, "created_at" => message.created_at.strftime("%d %b  %Y at %I:%M%p")}
-        end
+        info = Conversation.get_messages(conversation.messages, current_user)
         {"status" => "success", "messages" => info, "conversation" => conversation.id}
       end
 

@@ -29,7 +29,7 @@ module V1
 	  end
 	  get '/search_by_fields', jbuilder: 'v1/cars/index' do
 		authorize
-		@cars = Car.search "", :conditions => search_params(params), :per_page => 500
+		@cars = Car.search "", :conditions => Setandforget.search_params(params), :per_page => 500
 	  end
 	  
 	  desc 'GET /api/v1/cars/search_by_fields'
@@ -40,9 +40,7 @@ module V1
 	  end
 	  get '/search_test', jbuilder: 'v1/cars/index' do
 		authorize
-		with_params = with_params(params)
-		#{"test"=>with_params}
-		@cars = Car.search "", :conditions => search_params(params), :with => with_params, :per_page => 500
+		@cars = Car.search "", :conditions => Setandforget.search_params(params), :with => Setandforget.with_params(params), :per_page => 500
 	  end
 	  
 	  desc 'get /api/v1/cars/makes'	  

@@ -25,4 +25,12 @@ class Conversation < ActiveRecord::Base
     end
     return conversation
   end
+
+  def self.get_messages(messages, current_user)
+    info = Array.new
+    messages.each do |message|
+      sender = message.user_id == current_user.id ? 'me' : 'interlocutor'
+      info << {"body" => message.body, "sender" => sender, "created_at" => message.created_at.strftime("%d %b  %Y at %I:%M%p")}
+    end
+  end
 end
