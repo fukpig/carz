@@ -33,38 +33,4 @@ class Car < ActiveRecord::Base
 		  end
    	end
   end
-
-  def self.search_params(params={})
-    search_conditions = ""
-    p = params[:search].dup
-    p.each do |k,v|
-      if !k.to_s.include?("_from") && !k.to_s.include?("_to")
-        if v.kind_of?(Array)
-          values_string = v.join('|')
-        else 
-          values_string = v
-        end
-        params_string = "(@" + k.to_s + " " + values_string + ")"
-        search_conditions = search_conditions + params_string
-      end
-    end
-    return search_conditions
-  end
-
-  def with_params(params={})
-    return {} if params.blank? || params[:search].blank?
-    info = Hash.new
-    params[:search].each do |k, v|
-      if k.to_s.include? "_from"
-        param_f = v
-        param_f = 0 if param_f.empty?
-           
-        param_name = k.to_s.gsub("_from", "")
-        param_t = params[:search][param_name+"_to"]
-        param_t = 99999 if param_t.empty?
-        info[param_name] = param_f.to_i..param_t.to_i
-      end
-    end
-    return info
-  end
 end
